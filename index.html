@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title></title>
+    <style>
+        * {
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            margin: 0;
+        }
+
+        body {
+            overflow: hidden;
+        }
+
+        video {
+            object-fit: fill;
+        }
+    </style>
+</head>
+
+<body>
+    <video id="video" src="./img/2.mp4" loop muted autoplay height="100%"></video>
+</body>
+<script type="text/javascript">
+    window.onload = function () {
+        var $video = document.getElementById("video");
+        $video.addEventListener("canplaythrough", function () {
+            setScale();
+            window.onresize = setScale;
+        });
+        function setScale() {
+            var vw = $video.videoWidth;
+            var vh = $video.videoHeight;
+            var bw = document.body.offsetWidth;
+            var bh = document.body.offsetHeight;
+            var vbl = vh / vw;
+            var bbl = bh / bw;
+            if (vbl > bbl) {
+                var scale = vbl / bbl * 1.01;
+                $video.style.msTransform = "scaleX(" + scale + ")";
+            }else{
+                var scale = bbl/vbl * 1.01;
+                $video.style.msTransform = "scaleY(" + scale + ")";
+            }
+
+        }
+    }
+</script>
+
+</html>
